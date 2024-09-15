@@ -44,7 +44,7 @@ nav ul li a {
 }
 
 .hero {
-    background-image: url('your-background-image.jpg');
+    background-image: url('images/beamline.jpg');
     background-size: cover;
     background-position: center;
     height: 60vh;
