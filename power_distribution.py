@@ -8,18 +8,18 @@ import matplotlib.colors as colors
 
 
 # Get velocity as a fraction of c from electron energy in GeV
-def beta(E):
+def calc_beta(E):
     # c = 1  # Speed of light
     m = 5.11e-4  # Electron mass in GeV
     # return np.sqrt(1 - (m**2 * c**4) / E**2)
     return np.sqrt(1 - (m ** 2) / E ** 2)
 
 
-def lambda_this(theta, phi, D, beta, n):
+def calc_lambda(theta, phi, D, beta, n):
     return (D / n) * (1 / beta - np.cos(theta) * np.sin(np.pi / 2 - phi))
 
 
-def lambda_e(theta, phi, beta, gamma, lambda_this):
+def calc_lambda_e(theta, phi, beta, gamma, lambda_this):
     term1 = lambda_this / (2 * np.pi)
     term2 = (beta * gamma) / np.sqrt(1 + beta**2 * gamma**2 * np.sin(theta)**2 * np.sin(phi)**2)
     return term1 * term2
@@ -29,13 +29,13 @@ def lambda_e(theta, phi, beta, gamma, lambda_this):
 # theta - Angle 'up' wrt. beam
 # phi - Angle 'left/right' wrt. beam (pi / 2 is parallel)
 # Equations from https://journals.aps.org/prab/abstract/10.1103/PhysRevSTAB.8.091301
-def R2(theta, phi, beta, gamma, N, L, n, alpha):
+def calc_R2(theta, phi, beta, gamma, N, L, n, alpha):
 
     D = L / N # grating period
     h = D * np.tan(alpha) # grating height
 
-    lambda_this = lambda_this(theta, phi, D, beta, n)
-    lambda_e = lambda_e(theta, phi, beta, gamma, lambda_this)
+    lambda_this = calc_lambda(theta, phi, D, beta, n)
+    lambda_e = calc_lambda_e(theta, phi, beta, gamma, lambda_this)
 
     k = 2 * np.pi / lambda_this # wavenumber
     k_x = k * np.cos(phi) * np.sin(theta)
@@ -89,20 +89,20 @@ def R2(theta, phi, beta, gamma, N, L, n, alpha):
 # h - Height of grating (peak to trough)
 # E - Beam energy (GeV)
 # d - Height of beam above grating (m)
-def get_distribution(theta, phi, n, L, N, alpha, E, d):
+def calc_distribution(theta, phi, n, L, N, alpha, E, d):
     D = L / N  # grating period
 
-    beta = beta(E)
+    beta = calc_beta(E)
     gamma = 1 / np.sqrt(1 - beta ** 2)
 
-    lambda_this = lambda(theta, np.pi / 2, D, beta, n)
+    lambda_this = calc_lambda(theta, np.pi / 2, D, beta, n)
 
     h_int = lambda_this * beta * gamma / (4 * np.pi)
 
     term1 = 1 / 137 * np.abs(n) * N
     term2 = np.sin(theta)**2 * np.cos(phi)**2 / ( # cos instead of sin because different phi
                 1 / beta - np.cos(theta) * np.cos(phi))**2
-    term3 = R2(theta, phi, beta, gamma, N, L, n, alpha)
+    term3 = calc_R2(theta, phi, beta, gamma, N, L, n, alpha)
     term4 = np.exp(-1 * d / h_int * np.sqrt(1 + (beta * gamma * np.sin(phi))**2))
 
     return term1 * term2 * term3 * term4 if term4 != 0 else 1e-100
@@ -121,7 +121,7 @@ if __name__ == '__main__':
     alpha = float(input('Enter blaze angle of echelle grating in °: '))
 
     thetas, phis = np.meshgrid(np.linspace(0, np.pi, 501), np.linspace(-np.pi / 60, np.pi / 60, 501))
-    power_dist = np.array([[get_distribution(theta, phi[0], n, L, N, alpha * np.pi / 180, E, d) for theta in thetas[0]] for phi in phis])
+    power_dist = np.array([[calc_distribution(theta, phi[0], n, L, N, alpha * np.pi / 180, E, d) for theta in thetas[0]] for phi in phis])
 
     print(thetas)
     print(phis)
@@ -149,5 +149,5 @@ if __name__ == '__main__':
 
     # fig.savefig(filepath_img)
 
-    # with open(filepath_data, 'w') as f:
-     #   f.write(json.dumps(power_dist.tolist()))
+    with open(filepath_data, 'w') as f:
+        f.write(json.dumps(power_dist.tolist()))
