@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 
 # Get velocity as a fraction of c from electron energy in GeV
-def beta(E):
+def calc_beta(E):
     # c = 1  # Speed of light
     m = 5.11e-4  # Electron mass in GeV
     # return np.sqrt(1 - (m**2 * c**4) / E**2)
@@ -17,8 +17,8 @@ def beta(E):
 # D in m
 # theta, phi, in radians
 # beam_energy in GeV
-def lambda_this(theta, phi, D, beam_energy, n=-1):
-    beta = beta(beam_energy)
+def calc_lambda(theta, phi, D, beam_energy, n=-1):
+    beta = calc_beta(beam_energy)
     return (D / np.abs(n)) * (1 / beta - np.cos(theta) * np.sin(phi))
 
 
@@ -28,7 +28,7 @@ if __name__ == '__main__':
     n = int(input('Enter diffraction index: '))  # Diffraction index
 
     phis, thetas = np.meshgrid(np.linspace(0, np.pi, 101), np.linspace(np.pi / -2, np.pi / 2, 101))
-    lambdas = np.array([[1e9 * lambda_this(theta[0], phi, D, beam_energy, n) for theta in thetas] for phi in phis[0]])
+    lambdas = np.array([[1e9 * calc_lambda(theta[0], phi, D, beam_energy, n) for theta in thetas] for phi in phis[0]])
 
     print(thetas)
     print(phis)
