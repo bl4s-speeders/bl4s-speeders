@@ -1,14 +1,128 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-    <title>SPEEDers</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Front End</title>
+
+    <!-- Link to Google Fonts for Custom Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Internal CSS -->
+    <style>
+        /* Global Styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-image: url('images/beamline.jpg'); /* Replace with your image URL */
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+        }
+
+        /* Container for the content */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Tab navigation */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 15px 30px;
+            margin: 0 10px;
+            cursor: pointer;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 25px;
+            transition: background-color 0.3s ease;
+        }
+
+        .tab:hover {
+            background-color: rgba(255, 255, 255, 1);
+        }
+
+        /* Active tab styling */
+        .tab.active {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+        }
+
+        /* Tab content */
+        .tab-content {
+            text-align: center;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 50px;
+            border-radius: 15px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab {
+                margin: 5px 0;
+            }
+        }
+    </style>
 </head>
-
 <body>
-    <img src="images/beamline.jpg" width="400px" height="300px">s
-</body>
+    <div class="container">
+        <!-- Tabs -->
+        <div class="tabs">
+            <div class="tab active" onclick="showContent('home')">Home</div>
+            <div class="tab" onclick="showContent('about')">About Us</div>
+            <div class="tab" onclick="showContent('contact')">Blog</div>
+        </div>
 
+        <!-- Tab content -->
+        <div id="home" class="tab-content">
+            <h1>Welcome to Home</h1>
+            <p>This is the home page content.</p>
+        </div>
+        <div id="about" class="tab-content" style="display:none;">
+            <h1>About Us</h1>
+            <p>This is the about page content.</p>
+        </div>
+        <div id="contact" class="tab-content" style="display:none;">
+            <h1>Contact Us</h1>
+            <p>This is the contact page content.</p>
+        </div>
+    </div>
+
+    <script>
+        function showContent(tabName) {
+            const tabs = document.querySelectorAll('.tab');
+            const contents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => {
+                if (tab.textContent.toLowerCase() === tabName) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+
+            contents.forEach(content => {
+                if (content.id === tabName) {
+                    content.style.display = 'block';
+                } else {
+                    content.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
 </html>
 
 
