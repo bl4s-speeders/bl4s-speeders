@@ -19,6 +19,7 @@
             background-image: url('images/beamline.jpg'); 
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
             height: 100vh;
         }
 
@@ -35,6 +36,7 @@
             display: flex;
             justify-content: center;
             margin-bottom: 20px;
+            flex-wrap: wrap;
         }
 
         .tab {
@@ -79,10 +81,10 @@
             font-size: 7em;
         }
 
-                /* New CSS for About Us Members */
-                .members-grid {
+        .members-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr); /* 2 columns */
+            grid-template-columns: repeat(4, 1fr);
             gap: 20px;
             color: black;
         }
