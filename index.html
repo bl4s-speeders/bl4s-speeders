@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="images/beamline_logo.png">
+    <link rel="preload" href="images/beamline.jpg" as="image">
+    
     <title>SPEEDers</title>
 
     <!-- Link to Google Fonts for Custom Font -->
@@ -158,8 +160,14 @@
             }
 
             .members-grid {
-                grid-template-columns: 1fr; /* Single column on smaller screens */
+                grid-template-columns: 1fr; /
             }
+
+            body, html {
+                
+            background-attachment: scroll; 
+
+
         }
     </style>
 </head>
