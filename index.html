@@ -167,7 +167,8 @@
         function showContent(tabName) {
             const tabs = document.querySelectorAll('.tab');
             const contents = document.querySelectorAll('.tab-content');
-
+            const homeSection = document.getElementById('home');
+    
             tabs.forEach(tab => {
                 if (tab.textContent.toLowerCase() === tabName) {
                     tab.classList.add('active');
@@ -175,7 +176,7 @@
                     tab.classList.remove('active');
                 }
             });
-
+    
             contents.forEach(content => {
                 if (content.id === tabName) {
                     content.style.display = 'block';
@@ -183,7 +184,15 @@
                     content.style.display = 'none';
                 }
             });
+    
+            // Handle showing/hiding the Home section
+            if (tabName === 'home') {
+                homeSection.style.display = 'block';
+            } else {
+                homeSection.style.display = 'none';
+            }
         }
     </script>
+    
 </body>
 </html>
