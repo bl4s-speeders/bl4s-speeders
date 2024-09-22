@@ -79,6 +79,45 @@
             font-size: 7em;
         }
 
+                /* New CSS for About Us Members */
+                .members-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 columns */
+            gap: 20px;
+            color: black;
+        }
+
+        .member {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .member h3 {
+            margin: 15px 0 5px;
+            font-size: 1.5em;
+        }
+
+        .member .pronouns {
+            font-size: 0.9em;
+            color: rgba(66, 61, 61, 0.7);
+        }
+
+        .member p {
+            margin-top: 10px;
+            font-family: 'EB Garamond', serif;
+            color: rgba(66, 61, 61, 0.945);
+        }
+
         /* Blog Entry Box */
         .blog-entry {
             font-family: 'EB Garamond', serif;
@@ -114,6 +153,10 @@
             .tab {
                 margin: 5px 0;
             }
+
+            .members-grid {
+                grid-template-columns: 1fr; /* Single column on smaller screens */
+            }
         }
     </style>
 </head>
@@ -135,7 +178,19 @@
 
         <div id="about" class="tab-content">
             <h1>About Us</h1>
-            <p>Coming Soon!</p>
+            <p>Hi, we're the SPEEDers, a group of high school students passionate about physics and STEM. </p>
+
+            <div class="members-grid"></div>
+                <!-- Member 1 -->
+                <div class="member">
+                    <img src="images/richard.png" alt="Team Captain">
+                    <h3>Richard Chen</h3>
+                    <div class="pronouns">(He/Him)</div>
+                    <p>Placeholder</p>
+                </div>
+                
+            </div>
+        </div>
         </div>
 
         <div id="blog" class="tab-content">
